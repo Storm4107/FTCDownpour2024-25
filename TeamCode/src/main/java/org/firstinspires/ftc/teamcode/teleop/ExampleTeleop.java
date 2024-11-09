@@ -73,11 +73,11 @@ public class ExampleTeleop extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.A)) {
-                    m_Superstructure.pickupPreset();
+                    //m_Superstructure.pickupPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.X)) {
-                    m_Superstructure.mediumPreset();
+                    //m_Superstructure.mediumPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.Y)) {
@@ -85,13 +85,13 @@ public class ExampleTeleop extends LinearOpMode {
                 }
 
                 //Superstructure manual input toggle - Triggered by holding holding left bumper
-                if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.ManualInput(
-                            Operator.getLeftY(),
-                            Operator.getButton(GamepadKeys.Button.A),
-                            Operator.getButton(GamepadKeys.Button.B),
-                            Operator.getButton(GamepadKeys.Button.X)
-                    );
+                //if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
+                    //m_Superstructure.ManualInput(
+                            //Operator.getLeftY(),
+                            //Operator.getButton(GamepadKeys.Button.A),
+                            //Operator.getButton(GamepadKeys.Button.B),
+                            //Operator.getButton(GamepadKeys.Button.X)
+                    //);
                     telemetry.addData(
                             "MANUAL INPUT ENABLED",
                             "A = ARM, B = WRIST, X = ELEVATOR." + "USE LEFT STICK TO CONTROL INPUT");
@@ -100,15 +100,15 @@ public class ExampleTeleop extends LinearOpMode {
 
                 //Pincher controls
                 if (Operator.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
-                    m_Superstructure.Pincher.open();
+                    //m_Superstructure.Pincher.open();
                 }
 
                 if ((Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3)) {
-                    m_Superstructure.Pincher.close();
+                    //m_Superstructure.Pincher.close();
                 }
 
                 telemetry.update();
             }
         }
-    }
+    //}
 

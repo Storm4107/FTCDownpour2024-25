@@ -66,7 +66,7 @@ public class SuperstructureSubsystem {
     public void zeroPreset() {
 
         Elevator.setInches(0);
-        extendo.setServos(-1);
+        extendo.setServos(1);
         pincher.retract();
     }
 
@@ -74,15 +74,15 @@ public class SuperstructureSubsystem {
     public void groundPickupPreset() {
 
         Elevator.setInches(0);
-        extendo.setServos(1);
+        extendo.setServos(-1);
         pincher.open();
         pincher.groundPickup();
     }
 
     public void wallPickupPreset() {
 
-        Elevator.setInches(1000);
-        extendo.setServos(-1);
+        Elevator.setInches(315);
+        extendo.setServos(.7);
         pincher.open();
         pincher.wallPickup();
     }
@@ -90,8 +90,8 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to low bucket
     public void lowPreset() {
 
-        Elevator.setInches(1700);
-        extendo.setServos(-1);
+        Elevator.setInches(1600);
+        extendo.setServos(.7);
         pincher.scoreSample();
     }
 
@@ -99,7 +99,7 @@ public class SuperstructureSubsystem {
     public void highPreset() {
 
         Elevator.setInches(2400);
-        extendo.setServos(-1);
+        extendo.setServos(.7);
         pincher.scoreSample();
     }
 

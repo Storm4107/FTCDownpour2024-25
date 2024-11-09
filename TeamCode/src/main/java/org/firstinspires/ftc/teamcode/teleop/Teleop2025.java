@@ -50,6 +50,9 @@ public class Teleop2025 extends LinearOpMode {
                    m_Drive.resetHeading();
                 }
 
+                //sets dt to power brake
+                m_Drive.zeroPowerBrake();
+
                 //Drivetrain method
                 m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
 

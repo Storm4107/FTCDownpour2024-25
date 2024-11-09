@@ -61,7 +61,7 @@ public class MecanumDriveSubsystem {
         } else {
             m = Constants.DriveConstants.DriveSpeedMult;
         }
-        Drive.driveFieldCentric(-y*m, -x*m, t*m,
+        Drive.driveFieldCentric(-y*m, x*m, -t*m,
                 getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
         drivePeriodic();
     }
@@ -98,6 +98,13 @@ public class MecanumDriveSubsystem {
     public void resetDriveEncoders() {
         leftFront.stopAndResetEncoder();
         rightBack.stopAndResetEncoder();
+    }
+
+    public void zeroPowerBrake(){
+        leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
     }
 
     public void drivePeriodic() {
