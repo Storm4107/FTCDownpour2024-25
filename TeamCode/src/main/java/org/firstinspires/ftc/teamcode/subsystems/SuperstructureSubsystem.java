@@ -17,7 +17,7 @@ public class SuperstructureSubsystem {
     public DoubleMotorArm Arm;
     public LinearActuator Elevator;
 
-    public DoubleServoPincher Pincher;
+    public PincherSubsystem pincher;
 
     private Motor leftArmMotor;
     private Motor rightArmMotor;
@@ -66,8 +66,6 @@ public class SuperstructureSubsystem {
                 Constants.SuperstructureConstants.elevatorCPI,
                 true,
                 Constants.SuperstructureConstants.elevatorPID);
-
-        Pincher = new DoubleServoPincher(leftServo, rightServo);
     }
 
     public void enableDebug() {
@@ -78,13 +76,13 @@ public class SuperstructureSubsystem {
     }
 
     //Sample preset - Brings all mechanisms to 0
-    public void zeroPreset() {
+    /*public void zeroPreset() {
 
         Wrist.setAngle(0);
         Arm.setAngle(0);
         Elevator.setInches(0);
     }
-
+*/
     //Sample preset - Brings all mechanisms to high drop-off
     public void highPreset() {
 
@@ -107,6 +105,34 @@ public class SuperstructureSubsystem {
         Wrist.setAngle(1130);
         Arm.setAngle(1970);
         Elevator.setInches(1360);
+    }
+
+    public void zeroPreset() {
+
+        Elevator.setInches(0);
+        pincher.retract();
+    }
+
+    //Sample preset - Brings all mechanisms to pickup
+    public void groundPickupPreset() {
+
+        Elevator.setInches(0);
+        pincher.open();
+        pincher.groundPickup();
+    }
+
+    public void wallPickupPreset() {
+
+        Elevator.setInches(315);
+        pincher.open();
+        pincher.wallPickup();
+    }
+
+    //Sample preset - Brings all mechanisms to low bucket
+    public void lowPreset() {
+
+        Elevator.setInches(1600);
+        pincher.scoreSample();
     }
 
     /**

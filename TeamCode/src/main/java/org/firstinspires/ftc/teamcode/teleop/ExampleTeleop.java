@@ -100,11 +100,11 @@ public class ExampleTeleop extends LinearOpMode {
 
                 //Pincher controls
                 if (Operator.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
-                    m_Superstructure.Pincher.open();
+                    m_Superstructure.pincher.open();
                 }
 
                 if ((Operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3)) {
-                    m_Superstructure.Pincher.close();
+                    m_Superstructure.pincher.close();
                 }
 
                 telemetry.update();

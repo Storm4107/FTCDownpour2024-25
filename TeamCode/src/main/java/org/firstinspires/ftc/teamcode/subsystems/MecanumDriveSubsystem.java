@@ -113,6 +113,14 @@ public class MecanumDriveSubsystem {
         //PUT PERIODIC HERE
     }
 
+    public void zeroPowerBrake() {
+        //sets the drive motors to a brake position
+        leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+    }
+
     //Drivebot scheduler: a custom movement utility.
     //This is an autonomous tool, but it can also be used for automatic movement in teleop.
     //TODO: PID for Strafe/translation/heading needs to be tuned.
