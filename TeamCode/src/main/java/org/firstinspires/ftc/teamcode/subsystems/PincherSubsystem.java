@@ -48,12 +48,12 @@ public class PincherSubsystem {
 
     //set pincher to open
     public void open() {
-        pincher.setServos(0.7);
+        pincher.setServos(1);
     }
 
     //set pincher to closed
     public void close() {
-        pincher.setServos(0);
+        pincher.setServos(-1);
     }
 
     //Presets
