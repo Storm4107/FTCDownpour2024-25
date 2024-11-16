@@ -62,11 +62,15 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.A)) {
-                    m_Superstructure.groundPickupPreset();
+                    //m_Superstructure.groundPickupPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.X)) {
                     m_Superstructure.wallPickupPreset();
+                }
+
+                if (Operator.getButton(GamepadKeys.Button.B)) {
+                    m_Superstructure.lowPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.Y)) {
@@ -101,8 +105,24 @@ public class Teleop2025 extends LinearOpMode {
                     m_Superstructure.pincher.setPivotAngle(-0.1);
                 }
                 else m_Superstructure.pincher.setPivotAngle(0.5);
-        }
 
+            if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
+                m_Superstructure.pincher.retract();
+            }
+
+            if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
+                m_Superstructure.pincher.groundPickup();
+            }
+
+            if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
+                m_Superstructure.pincher.wallPickup();
+            }
+
+            if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
+                m_Superstructure.pincher.scoreSample();
+            }
+        }
+/*
               //Wrist controls
                 if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
                     m_Superstructure.pincher.retract();
@@ -122,7 +142,7 @@ public class Teleop2025 extends LinearOpMode {
 
                 //Presets
                  if (Operator.getButton(GamepadKeys.Button.A)) {
-                    m_Superstructure.groundPickupPreset();
+                    //m_Superstructure.groundPickupPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.X)) {
@@ -141,7 +161,7 @@ public class Teleop2025 extends LinearOpMode {
                 if (Math.abs(Operator.getRightX()) > 0){
                     m_Superstructure.pincher.setPivotAngle((Operator.getRightX() / 2) + 0.5);
                 }
-
+*/
                 telemetry.update();
             }
         }
