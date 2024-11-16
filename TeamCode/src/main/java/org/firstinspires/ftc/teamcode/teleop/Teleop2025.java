@@ -66,7 +66,7 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.X)) {
-                    m_Superstructure.lowPreset();
+                    m_Superstructure.wallPickupPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.Y)) {

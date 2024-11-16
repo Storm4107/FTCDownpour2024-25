@@ -59,19 +59,19 @@ public class PincherSubsystem {
     //Presets
     public void groundPickup() {
         //open();
-        setWristAngle(0.8);
-        setPivotAngle(0.45);
+        setWristAngle(1);
+        //setPivotAngle(0.45);
     }
 
     public void wallPickup() {
        // open();
-        setWristAngle(0.4);
-        setPivotAngle(.45);
+        setWristAngle(.5);
+        setPivotAngle(.7 );
     }
 
     public void retract() {
-        setWristAngle(-1);
-        setPivotAngle(0.6);
+        setWristAngle(.26  );
+        //setPivotAngle(-1);
     }
 
     public void scoreSample() {
