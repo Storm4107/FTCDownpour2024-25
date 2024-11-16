@@ -99,10 +99,10 @@ public class Teleop2025 extends LinearOpMode {
 
                 //Pivot controls
                 if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
-                    m_Superstructure.pincher.setPivotAngle(0.1);
+                    m_Superstructure.pincher.setPivotAngle(1);
                     
                  } else if (Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
-                    m_Superstructure.pincher.setPivotAngle(-0.1);
+                    m_Superstructure.pincher.setPivotAngle(0);
                 }
                 else m_Superstructure.pincher.setPivotAngle(0.5);
 
@@ -123,39 +123,6 @@ public class Teleop2025 extends LinearOpMode {
             }
         }
 /*
-              //Wrist controls
-                if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.pincher.retract();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
-                 m_Superstructure.pincher.groundPickup();
-                 }
-
-                if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
-                    m_Superstructure.pincher.wallPickup();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
-                    m_Superstructure.pincher.scoreSample();
-                }
-
-                //Presets
-                 if (Operator.getButton(GamepadKeys.Button.A)) {
-                    //m_Superstructure.groundPickupPreset();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.X)) {
-                    m_Superstructure.wallPickupPreset();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.B)) {
-                    m_Superstructure.lowPreset();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.Y)) {
-                    m_Superstructure.highPreset();
-                }
 
                 //Pivot manual control
                 if (Math.abs(Operator.getRightX()) > 0){
