@@ -66,7 +66,7 @@ public class PincherSubsystem {
     public void wallPickup() {
        // open();
         setWristAngle(.5);
-        setPivotAngle(.7 );
+        //setPivotAngle(.7 );
     }
 
     public void retract() {

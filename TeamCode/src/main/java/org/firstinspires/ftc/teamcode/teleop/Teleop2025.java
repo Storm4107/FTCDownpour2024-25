@@ -95,12 +95,13 @@ public class Teleop2025 extends LinearOpMode {
 
                 //Pivot controls
                 if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
-                    m_Superstructure.pincher.setPivotAngleControl(0.1);
-                 }
-
-                if ((Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3)) {
-                    m_Superstructure.pincher.setPivotAngleControl(-0.1);
-               }
+                    m_Superstructure.pincher.setPivotAngle(0.1);
+                    
+                 } else if (Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
+                    m_Superstructure.pincher.setPivotAngle(-0.1);
+                }
+                else m_Superstructure.pincher.setPivotAngle(0.5);
+        }
 
               //Wrist controls
                 if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
@@ -144,5 +145,5 @@ public class Teleop2025 extends LinearOpMode {
                 telemetry.update();
             }
         }
-    }
+
 
