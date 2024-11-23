@@ -52,8 +52,8 @@ public class MecanumDriveSubsystem {
 
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
-        leftBack.setInverted(true);
-        leftFront.setInverted(true);
+       // leftBack.setInverted(true);
+       // leftFront.setInverted(true);
 
 
         imu = new RevIMU(Map, "imu");
@@ -143,6 +143,9 @@ public class MecanumDriveSubsystem {
         int ForwardTarget;
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
+
+        leftBack.setInverted(true);
+        leftFront.setInverted(true);
 
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
