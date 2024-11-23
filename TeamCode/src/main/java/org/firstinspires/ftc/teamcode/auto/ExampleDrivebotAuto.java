@@ -18,6 +18,8 @@ public class ExampleDrivebotAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+
+
         //Run when initializing
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
@@ -32,8 +34,10 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Put auto steps here
-        m_Drive.AutoDriveRC(12, 0, 5);
-        //Drive the robot forward 1 foot.
+        m_Drive.AutoDriveRC(0, 6, 4);
+        m_Superstructure.highPreset();
+       // m_Superstructure.zeroPreset();
+        /*/Drive the robot forward 1 foot.
         m_Drive.AutoDriveRC(0, 12, 5);
         //Drive the robot Left 1 foot.
         m_Drive.AutoDriveRC(-12, 0, 5);
@@ -41,6 +45,6 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         m_Drive.AutoDriveRC(12, -12, 5);
         //Drive the robot right 1 foot.
         m_Drive.SetHeading(90, 3);
-        //Set heading to 90 degrees
+        //Set heading to 90 degrees*/
     }
 }
