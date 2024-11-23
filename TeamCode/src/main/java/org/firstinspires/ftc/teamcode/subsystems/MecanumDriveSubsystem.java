@@ -41,6 +41,8 @@ public class MecanumDriveSubsystem {
 
     //Creates new Mecanum Drivetrain
     public MecanumDriveSubsystem(HardwareMap Map, Telemetry telemetry) {
+
+
         this.telemetry = telemetry;
 
         leftFront = new Motor(Map, "leftFront");
@@ -49,6 +51,10 @@ public class MecanumDriveSubsystem {
         rightBack = new Motor(Map, "rightBack");
 
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
+
+        leftBack.setInverted(true);
+        leftFront.setInverted(true);
+
 
         imu = new RevIMU(Map, "imu");
         imu.init();
