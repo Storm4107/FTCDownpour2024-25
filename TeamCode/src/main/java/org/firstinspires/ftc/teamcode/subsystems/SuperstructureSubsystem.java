@@ -94,6 +94,12 @@ public class SuperstructureSubsystem {
 
     }
 
+    public void OpeningExtend(){
+
+        extendo.setServos(0);
+        extendoR.setServos(0);
+    }
+
     //Sample preset - Brings all mechanisms to low bucket
     public void lowPreset() {
 

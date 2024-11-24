@@ -98,7 +98,7 @@ public class MecanumDriveSubsystem {
 
     public int getStrafeTicks(){
         //assumes Forward deadwheel is plugged into RightBack
-        return rightBack.getCurrentPosition();
+        return -rightBack.getCurrentPosition();
     }
 
     public void resetDriveEncoders() {
@@ -144,7 +144,7 @@ public class MecanumDriveSubsystem {
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
 
-        leftBack.setInverted(true);
+        rightBack.setInverted(true);
         leftFront.setInverted(true);
 
             //Create PID constants
@@ -161,7 +161,7 @@ public class MecanumDriveSubsystem {
 
             //set target positions
             ForwardTarget = driveDistance(Forward);
-            StrafeTarget = driveDistance(Left);
+            StrafeTarget  = driveDistance(Left);
 
             runtime.reset();
 
