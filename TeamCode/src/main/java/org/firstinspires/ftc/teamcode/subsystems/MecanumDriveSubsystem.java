@@ -52,9 +52,6 @@ public class MecanumDriveSubsystem {
 
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
-       // leftBack.setInverted(true);
-       // leftFront.setInverted(true);
-
 
         imu = new RevIMU(Map, "imu");
         imu.init();
