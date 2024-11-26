@@ -36,6 +36,10 @@ public class Teleop2025 extends LinearOpMode {
         //Run immediately when starting
 
         while (opModeIsActive()) {
+
+            telemetry.addData("forward tickets", m_Drive.getForwardTicks());
+            telemetry.addData("straf tickts", m_Drive.getStrafeTicks());
+            telemetry.update();
                 //Periodic Opmode
                 m_Superstructure.periodic();
 
@@ -43,7 +47,12 @@ public class Teleop2025 extends LinearOpMode {
                         "Periodic currently running",
                         "Operator can hold left bumper for manual control");
 
-                //TODO: Put button bindings below here
+                telemetry.addData("forward ticks",m_Drive.getForwardTicks());
+            telemetry.addData("strafe ticks",m_Drive.getStrafeTicks());
+            telemetry.addData("heading ticks",m_Drive.getHeading());
+
+
+            //TODO: Put button bindings below here
             ////////////////////////////////////////////////////////////////////////////////
                 //IMU Reset button
                 if (Driver.getButton(GamepadKeys.Button.Y)) {

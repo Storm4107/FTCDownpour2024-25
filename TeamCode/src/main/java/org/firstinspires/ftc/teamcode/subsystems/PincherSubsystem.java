@@ -71,7 +71,11 @@ public class PincherSubsystem {
 
     public void retract() {
         setWristAngle(.26  );
-        //setPivotAngle(-1);
+        setPivotAngle(-1);
+    }
+
+    public void bucketHome(){
+        setWristAngle(1);
     }
 
     public void scoreSample() {

@@ -32,7 +32,7 @@ public class SuperstructureSubsystem {
 
     private Telemetry telemetry;
 
-    ElapsedTime runtime;
+    private ElapsedTime runtime = new ElapsedTime();
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
@@ -94,6 +94,12 @@ public class SuperstructureSubsystem {
 
     }
 
+    public void OpeningExtend(){
+
+        extendo.setServos(0);
+        extendoR.setServos(0);
+    }
+
     //Sample preset - Brings all mechanisms to low bucket
     public void lowPreset() {
 
@@ -123,18 +129,20 @@ public class SuperstructureSubsystem {
     }
 
     public void setAutoPosition(double ElevatorInches, double TimeoutS) {
-            runtime.reset();
+        runtime.reset();
 
-            Elevator.setInches(ElevatorInches);
+        Elevator.setInches(ElevatorInches);
 
-            while((runtime.seconds() < TimeoutS) &&
-                    !Elevator.atSetpoint()) {
-                //Periodic
-                //actually drives the Superstructure.
-                Elevator.Periodic();
-                telemetry.addData("SUPERSTRUCTURE STATUS", "RUNNING");
-                telemetry.addData("Elevator inches:", Elevator.getInches());
-                telemetry.update();
-            }
+
+        while((runtime.seconds() < TimeoutS)) {
+
+
+            //Periodic
+            //actually drives the Superstructure.
+            Elevator.Periodic();
+            telemetry.addData("SUPERSTRUCTURE STATUS", "RUNNING");
+            telemetry.addData("Elevator ticks:", Elevator.getInches());
+            telemetry.update();
+        }
     }
 }
