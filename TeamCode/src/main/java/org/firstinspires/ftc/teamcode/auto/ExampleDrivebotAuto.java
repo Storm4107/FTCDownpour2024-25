@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
-
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
@@ -49,13 +48,11 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         m_Superstructure.OpeningExtend();
         m_Superstructure.pincher.close();
         m_Superstructure.pincher.bucketHome();
-        m_Superstructure.setAutoPosition(1000, 5);
-        //m_Superstructure.pincher.open();
-        sleep(50000);
+        //sleep(50000);
 
         //Put auto steps here
-        //m_Drive.AutoDriveRC(12, 0, 4);
-        //m_Drive.AutoDriveRC(0, 5, 4);
+        m_Drive.AutoDriveRC(12, 0, 4);
+        m_Drive.AutoDriveRC(0, 5, 4);
       //  Elevator.setInches(3);
        // m_Superstructure.pincher.setPivotAngle(6);
         //m_Superstructure.Elevator.setInches(5);
