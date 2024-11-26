@@ -52,9 +52,6 @@ public class MecanumDriveSubsystem {
 
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
-        leftBack.setInverted(true);
-        leftFront.setInverted(true);
-
 
         imu = new RevIMU(Map, "imu");
         imu.init();
@@ -98,7 +95,7 @@ public class MecanumDriveSubsystem {
 
     public int getStrafeTicks(){
         //assumes Forward deadwheel is plugged into RightBack
-        return rightBack.getCurrentPosition();
+        return -rightBack.getCurrentPosition();
     }
 
     public void resetDriveEncoders() {
@@ -144,6 +141,9 @@ public class MecanumDriveSubsystem {
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
 
+        rightBack.setInverted(true);
+        leftFront.setInverted(true);
+
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
             PIDCoefficients SC = Constants.AutoConstants.StrafePID;
@@ -158,7 +158,7 @@ public class MecanumDriveSubsystem {
 
             //set target positions
             ForwardTarget = driveDistance(Forward);
-            StrafeTarget = driveDistance(Left);
+            StrafeTarget  = driveDistance(Left);
 
             runtime.reset();
 

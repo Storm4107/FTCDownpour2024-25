@@ -36,6 +36,10 @@ public class Teleop2025 extends LinearOpMode {
         //Run immediately when starting
 
         while (opModeIsActive()) {
+
+            telemetry.addData("forward tickets", m_Drive.getForwardTicks());
+            telemetry.addData("straf tickts", m_Drive.getStrafeTicks());
+            telemetry.update();
                 //Periodic Opmode
                 m_Superstructure.periodic();
 
@@ -43,7 +47,12 @@ public class Teleop2025 extends LinearOpMode {
                         "Periodic currently running",
                         "Operator can hold left bumper for manual control");
 
-                //TODO: Put button bindings below here
+                telemetry.addData("forward ticks",m_Drive.getForwardTicks());
+            telemetry.addData("strafe ticks",m_Drive.getStrafeTicks());
+            telemetry.addData("heading ticks",m_Drive.getHeading());
+
+
+            //TODO: Put button bindings below here
             ////////////////////////////////////////////////////////////////////////////////
                 //IMU Reset button
                 if (Driver.getButton(GamepadKeys.Button.Y)) {
@@ -62,15 +71,23 @@ public class Teleop2025 extends LinearOpMode {
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.A)) {
-                    m_Superstructure.groundPickupPreset();
+                    //m_Superstructure.groundPickupPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.X)) {
+                    m_Superstructure.wallPickupPreset();
+                }
+
+                if (Operator.getButton(GamepadKeys.Button.B)) {
                     m_Superstructure.lowPreset();
                 }
 
                 if (Operator.getButton(GamepadKeys.Button.Y)) {
                     m_Superstructure.highPreset();
+                }
+
+                if (Operator.getButton(GamepadKeys.Button.RIGHT_STICK_BUTTON)) {
+                    telemetry.addData("Button", "Pressed");
                 }
 
                 //Superstructure manual input toggle - Triggered by holding holding left bumper
@@ -91,54 +108,38 @@ public class Teleop2025 extends LinearOpMode {
 
                 //Pivot controls
                 if (Operator.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
-                    m_Superstructure.pincher.setPivotAngleControl(0.1);
-                 }
-
-                if ((Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3)) {
-                    m_Superstructure.pincher.setPivotAngleControl(-0.1);
-               }
-
-              //Wrist controls
-                if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.pincher.retract();
+                    m_Superstructure.pincher.setPivotAngle(1);
+                    
+                 } else if (Operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
+                    m_Superstructure.pincher.setPivotAngle(0);
                 }
+                else m_Superstructure.pincher.setPivotAngle(0.5);
 
-                if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
-                 m_Superstructure.pincher.groundPickup();
-                 }
+            if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
+                m_Superstructure.pincher.retract();
+            }
 
-                if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
-                    m_Superstructure.pincher.wallPickup();
-                }
+            if (Operator.getButton(GamepadKeys.Button.DPAD_DOWN)) {
+                m_Superstructure.pincher.groundPickup();
+            }
 
-                if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
-                    m_Superstructure.pincher.scoreSample();
-                }
+            if (Operator.getButton(GamepadKeys.Button.DPAD_LEFT)) {
+                m_Superstructure.pincher.wallPickup();
+            }
 
-                //Presets
-                 if (Operator.getButton(GamepadKeys.Button.A)) {
-                    m_Superstructure.groundPickupPreset();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.X)) {
-                    m_Superstructure.wallPickupPreset();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.B)) {
-                    m_Superstructure.lowPreset();
-                }
-
-                if (Operator.getButton(GamepadKeys.Button.Y)) {
-                    m_Superstructure.highPreset();
-                }
+            if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
+                m_Superstructure.pincher.scoreSample();
+            }
+        }
+/*
 
                 //Pivot manual control
                 if (Math.abs(Operator.getRightX()) > 0){
                     m_Superstructure.pincher.setPivotAngle((Operator.getRightX() / 2) + 0.5);
                 }
-
+*/
                 telemetry.update();
             }
         }
-    }
+
 
