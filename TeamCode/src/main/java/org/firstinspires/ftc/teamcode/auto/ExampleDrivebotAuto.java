@@ -60,7 +60,7 @@ public class ExampleDrivebotAuto extends LinearOpMode {
        // m_Superstructure.pincher.setPivotAngle(6);
         //m_Superstructure.Elevator.setInches(5);
 
-        //m_Drive.SetHeading(90, 3);
+        m_Drive.SetHeading(90, 3);
 
 
         /*/Drive the robot forward 1 foot.
