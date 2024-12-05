@@ -52,18 +52,20 @@ public class AutoRedSpec extends LinearOpMode {
         // scores preload Spec
 
         m_Superstructure.setAutoPosition(1785, 5);
-        m_Drive.AutoDriveRC(30, 0, 5);
+        m_Drive.AutoDriveRC(25, 0, 5);
         m_Superstructure.setAutoPosition(1200,3);
         m_Superstructure.pincher.open();
 
         // it will now pick a ground sample and bring it to the human player
-
-        m_Superstructure.setAutoPosition(0, 3);
         m_Drive.AutoDriveRC(-4,0,3);
-        m_Drive.SetHeading(-90, 4);
-        m_Superstructure.pincher.groundPickup();
-        m_Drive.AutoDriveRC(-29,0,5);
-        m_Drive.AutoDriveRC(0,-13,3);
+        m_Superstructure.setAutoPosition(0, 3);
+        sleep(1000);
+        //m_Drive.SetHeading(188, 4);
+        m_Drive.AutoDriveRC(0,-30,5);
+        m_Drive.AutoDriveRC(20, 0, 4);
+        m_Drive.AutoDriveRC(0, -12, 4);
+        m_Drive.SetHeading(180, 5);
+        m_Drive.AutoDriveRC(29,0,3);
         m_Drive.AutoDriveRC(-3,0,2);
         //intake it here (i couldnt find the servo)
         //stop intake here

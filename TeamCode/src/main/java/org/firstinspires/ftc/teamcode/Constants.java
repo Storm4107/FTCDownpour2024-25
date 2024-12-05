@@ -34,7 +34,7 @@ public class Constants {
 
         public static final PIDCoefficients TranslationPID = new PIDCoefficients(.00012, 0, 0);
         public static final PIDCoefficients StrafePID = new PIDCoefficients(0.001, 0, 0.0001);
-        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.01, 0, 0.0);
+        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.0078, 0.008, 0.0002);
         public static final double AutoGain = 0.75; // All movements in auto are multiplied by this number. Can be used to reduce overall speed.
         public static double PIDTolerance = 200; //Tolerance in TICKS
     }

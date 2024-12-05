@@ -52,6 +52,13 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         m_Superstructure.setAutoPosition(1000, 5);
         //m_Superstructure.pincher.open();
         sleep(50000);
+        m_Drive.SetHeading(180,500000000);
+
+
+        //m_Superstructure.OpeningExtend();
+       // m_Superstructure.pincher.close();
+       // m_Superstructure.pincher.bucketHome();
+        //sleep(50000);
 
         //Put auto steps here
         //m_Drive.AutoDriveRC(12, 0, 4);
