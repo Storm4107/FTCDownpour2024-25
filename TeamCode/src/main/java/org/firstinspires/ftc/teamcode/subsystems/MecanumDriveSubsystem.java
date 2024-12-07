@@ -143,6 +143,8 @@ public class MecanumDriveSubsystem {
 
         rightBack.setInverted(true);
         leftFront.setInverted(true);
+        rightBack.setInverted(false);
+        leftFront.setInverted(false);
 
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
@@ -190,14 +192,13 @@ public class MecanumDriveSubsystem {
     public void SetHeading(double HeadingTarget, double TimeoutS) {
         resetDriveEncoders();
         double initialHeading = getHeading();
-        leftBack.setInverted(true);
+        rightBack.setInverted(true);
         rightFront.setInverted(true);
-
-        if(true) {
+        leftBack.setInverted(false);
+        rightFront.setInverted(false);
 
             //Create PID constants
             PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
-
 
             PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
             HeadingController.setTolerance(0.1);
@@ -208,9 +209,14 @@ public class MecanumDriveSubsystem {
 
             while((runtime.seconds() < TimeoutS) &&
                     !HeadingController.atSetPoint()) {
+
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
+                leftFront.set(HeadingController.calculate(getHeading(), HeadingTarget));
+                leftBack.set(HeadingController.calculate(getHeading(), HeadingTarget));
+                rightFront.set(HeadingController.calculate(getHeading(), HeadingTarget));
+                rightBack.set(HeadingController.calculate(getHeading(), HeadingTarget));
+
                 telemetry.addData("AUTO DRIVE STATUS", "HEADING");
                 telemetry.addData("Heading;", getHeading());
                 telemetry.update();
@@ -219,7 +225,8 @@ public class MecanumDriveSubsystem {
             //Stop all motion
             DriveRobotRelative(0,0,0, false);
             resetDriveEncoders();
-        }
 
     }
+
+
 }
