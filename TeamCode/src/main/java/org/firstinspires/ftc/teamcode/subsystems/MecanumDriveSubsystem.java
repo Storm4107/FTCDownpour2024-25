@@ -180,6 +180,9 @@ public class MecanumDriveSubsystem {
             //Stop all motion
             DriveRobotRelative(0,0,0, false);
             resetDriveEncoders();
+
+        rightBack.setInverted(false);
+        leftFront.setInverted(false);
         }
 
     /**
