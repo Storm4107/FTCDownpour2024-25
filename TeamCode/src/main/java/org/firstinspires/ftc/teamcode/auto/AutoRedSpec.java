@@ -46,6 +46,8 @@ public class AutoRedSpec extends LinearOpMode {
         //init commands
 
         m_Superstructure.OpeningExtend();
+
+/*
         m_Superstructure.pincher.close();
         m_Superstructure.pincher.bucketHome();
 
@@ -60,11 +62,15 @@ public class AutoRedSpec extends LinearOpMode {
         m_Drive.AutoDriveRC(-4,0,3);
         m_Superstructure.setAutoPosition(0, 3);
         sleep(1000);
+
+
         //m_Drive.SetHeading(188, 4);
         m_Drive.AutoDriveRC(0,-30,5);
-        m_Drive.AutoDriveRC(20, 0, 4);
+        */
+        //m_Drive.AutoDriveRC(20, 0, 4);
+        /*
         m_Drive.AutoDriveRC(0, -12, 4);
-        m_Drive.SetHeading(180, 5);
+        m_Drive.SetHeading(90, 5);
         m_Drive.AutoDriveRC(29,0,3);
         m_Drive.AutoDriveRC(-3,0,2);
         //intake it here (i couldnt find the servo)
@@ -78,8 +84,12 @@ public class AutoRedSpec extends LinearOpMode {
         //the robot will now pick up a new spec and score it
 
         m_Drive.AutoDriveRC(24,0,4);
-        m_Drive.SetHeading(180,3);
+
+ */
+        //m_Drive.SetHeading(180,3);
+        m_Drive.SetHeading(90,3);
         sleep(5000);
+        /*
         m_Drive.AutoDriveRC(27,0,4);
         m_Superstructure.pincher.close();
         m_Drive.AutoDriveRC(-4,0,3);
@@ -90,6 +100,6 @@ public class AutoRedSpec extends LinearOpMode {
         m_Superstructure.setAutoPosition(1200,3);
         m_Superstructure.pincher.open();
 
-
+*/
     }
 }

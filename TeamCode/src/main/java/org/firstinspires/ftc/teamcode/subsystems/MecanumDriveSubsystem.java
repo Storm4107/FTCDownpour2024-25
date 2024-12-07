@@ -190,6 +190,8 @@ public class MecanumDriveSubsystem {
     public void SetHeading(double HeadingTarget, double TimeoutS) {
         resetDriveEncoders();
         double initialHeading = getHeading();
+        leftBack.setInverted(true);
+        rightFront.setInverted(true);
 
         if(true) {
 
