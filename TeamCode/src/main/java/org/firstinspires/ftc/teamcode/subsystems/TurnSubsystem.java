@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
@@ -37,6 +38,20 @@ public class TurnSubsystem {
         leftBack = new Motor(Map, "leftBack");
         rightBack = new Motor(Map, "rightBack");
 
-        Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
+    }
+
+    public void Turn(double Power, int Time) {
+        leftFront.set(Power);
+        leftBack.set(Power);
+        rightFront.set(Power);
+        rightBack.set(Power);
+        sleep(Time);
+        leftFront.set(0);
+        leftBack.set(0);
+        rightFront.set(0);
+        rightBack.set(0);
+
+        rightBack.setInverted(true);
+        rightFront.setInverted(true);
     }
 }
