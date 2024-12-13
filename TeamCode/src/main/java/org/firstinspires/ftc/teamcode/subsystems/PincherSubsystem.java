@@ -70,7 +70,7 @@ public class PincherSubsystem {
     }
 
     public void retract() {
-        setWristAngle(.26  );
+        setWristAngle(.22  );
         setPivotAngle(-1);
     }
 
