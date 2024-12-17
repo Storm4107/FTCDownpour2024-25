@@ -31,13 +31,15 @@ public class AutoRedSpec extends LinearOpMode {
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
         m_Turn = new TurnSubsystem(hardwareMap, telemetry);
-
+        m_Drive.zeroPowerBrake();
 
 
 
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.update();
             telemetry.addData("Auto", "Selected");
+            m_Drive.zeroPowerBrake();
+
         }
         waitForStart();
 
@@ -51,22 +53,22 @@ public class AutoRedSpec extends LinearOpMode {
         // scores preload Spec
 
         m_Superstructure.setAutoPosition(1785, 2);
-        m_Drive.AutoDriveRC(24, 0, 3);
+        m_Drive.AutoDriveRC(28, 0, 3);
         m_Superstructure.setAutoPosition(1200,1);
         m_Superstructure.pincher.open();
 
         // it will now pick a ground sample and bring it to the human player
         m_Drive.AutoDriveRC(-4,0,1);
-        m_Superstructure.setAutoPosition(0, 3);
+        m_Superstructure.setAutoPosition(-100, 3);
       //  sleep(1000);
 
 
         //m_Drive.SetHeading(188, 4);
         m_Drive.AutoDriveRC(0,-30,3);
 
-        m_Drive.AutoDriveRC(24, 0, 3);
+        m_Drive.AutoDriveRC(30, 0, 3);
 
-        m_Drive.AutoDriveRC(0, -15, 3);
+        m_Drive.AutoDriveRC(0, -10, 3);
 
      //   sleep(2000);
        // m_Turn.Turn(.75, 950);
@@ -76,27 +78,27 @@ public class AutoRedSpec extends LinearOpMode {
 
 
 
-        m_Drive.AutoDriveRC(41,0,6);
+        m_Drive.AutoDriveRC(47,0,6);
 
         m_Superstructure.pincher.close();
 
         sleep(500);
 
-        m_Superstructure.setAutoPosition(500, 1);
-        m_Drive.AutoDriveRC(-10, 0, 2);
+        //m_Superstructure.setAutoPosition(500, 1);
+        //  m_Drive.AutoDriveRC(-10, 0, 2);
 
-        m_Drive.SetHeading(0, 3);
-        m_Drive.AutoDriveRC(0, 45, 2);
+        //m_Drive.SetHeading(0, 3);
+        //m_Drive.AutoDriveRC(0, 45, 2);
 
-        m_Superstructure.setAutoPosition(1785, 3);
+        //m_Superstructure.setAutoPosition(1785, 3);
 
-        m_Drive.AutoDriveRC(17, 0, 3);
+       // m_Drive.AutoDriveRC(17, 0, 3);
 
-        m_Superstructure.setAutoPosition(1200, 1);
+       // m_Superstructure.setAutoPosition(1200, 1);
 
-        m_Superstructure.pincher.open();
+       // m_Superstructure.pincher.open();
 
-        m_Superstructure.setAutoPosition(0, 2);
+       // m_Superstructure.setAutoPosition(0, 2);
 
 
 
