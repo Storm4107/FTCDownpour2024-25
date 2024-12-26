@@ -138,10 +138,12 @@ public class MecanumDriveSubsystem {
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
 
-        double currentTime = runtime.time();
+        double currentTime = runtime.seconds();
 
         rightBack.setInverted(true);
         leftFront.setInverted(true);
+        rightFront.setInverted(false);
+        leftBack.setInverted(false);
 
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
@@ -172,12 +174,14 @@ public class MecanumDriveSubsystem {
                 telemetry.addData("Heading;", getHeading());
                 telemetry.update();
             }
-            if (currentTime == (endTime + 0.1)) {
+            if ((endTime < currentTime) && (currentTime<= endTime + 0.1)) {
                 //Stop all motion
                 DriveRobotRelative(0, 0, 0, false);
                 resetDriveEncoders();
                 rightBack.setInverted(false);
                 leftFront.setInverted(false);
+                rightFront.setInverted(false);
+                leftBack.setInverted(false);
             }
         }
 
@@ -189,7 +193,12 @@ public class MecanumDriveSubsystem {
      * @param runtime  passes the elapsedTime to the class
      */
     public void SetHeading(double HeadingTarget, double initialTime, double endTime, ElapsedTime runtime) {
-        double currentTime = runtime.time();
+        double currentTime = runtime.seconds();
+
+        rightBack.setInverted(true);
+        leftFront.setInverted(false);
+        rightFront.setInverted(false);
+        leftBack.setInverted(true);
 
         //Create PID constants
         PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
@@ -202,15 +211,20 @@ public class MecanumDriveSubsystem {
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
+            DriveRobotRelative(0, HeadingController.calculate(getHeading(), HeadingTarget), 0, false);
             telemetry.addData("AUTO DRIVE STATUS", "HEADING");
             telemetry.addData("Heading;", getHeading());
             telemetry.update();
             }
-        if (currentTime == (endTime + 0.1)) {
+        if ((endTime < currentTime) && (currentTime<= endTime + 0.1)) {
             //Stop all motion
             DriveRobotRelative(0, 0, 0, false);
             resetDriveEncoders();
+
+            rightBack.setInverted(false);
+            leftFront.setInverted(false);
+            rightFront.setInverted(false);
+            leftBack.setInverted(false);
         }
     }
 }

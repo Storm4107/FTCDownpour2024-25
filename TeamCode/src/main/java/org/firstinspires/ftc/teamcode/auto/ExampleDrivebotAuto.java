@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
@@ -14,11 +14,11 @@ import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 public class ExampleDrivebotAuto extends LinearOpMode {
     //Instantiate mechanisms
 
-
-
-
     public SuperstructureSubsystem m_Superstructure;
     private MecanumDriveSubsystem m_Drive;
+
+    public ElapsedTime runtime = new ElapsedTime();
+
 
 
 
@@ -26,61 +26,33 @@ public class ExampleDrivebotAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-
-
         //Run when initializing
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
-
-
-
+        m_Drive.zeroPowerBrake();
 
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.update();
             telemetry.addData("Auto", "Selected");
+            m_Drive.zeroPowerBrake();
+            runtime.reset();
+
+            //init commands
+            m_Superstructure.pincher.close();
+            m_Superstructure.OpeningExtend();
+            m_Superstructure.pincher.bucketHome();
+
         }
         waitForStart();
-
-
+        m_Drive.resetDriveEncoders();
 
         if (isStopRequested()) return;
+        while (opModeIsActive()) {
+            telemetry.addData("Current time", runtime.seconds());
 
-
-        m_Superstructure.OpeningExtend();
-        m_Superstructure.pincher.close();
-        m_Superstructure.pincher.bucketHome();
-        m_Superstructure.setAutoPosition(1000, 5);
-        //m_Superstructure.pincher.open();
-        sleep(50000);
-        m_Drive.SetHeading(180,500000000);
-
-
-        //m_Superstructure.OpeningExtend();
-       // m_Superstructure.pincher.close();
-       // m_Superstructure.pincher.bucketHome();
-        //sleep(50000);
-
-        //Put auto steps here
-        //m_Drive.AutoDriveRC(12, 0, 4);
-        //m_Drive.AutoDriveRC(0, 5, 4);
-      //  Elevator.setInches(3);
-       // m_Superstructure.pincher.setPivotAngle(6);
-        //m_Superstructure.Elevator.setInches(5);
-
-        m_Drive.SetHeading(90, 3);
-
-
-        /*/Drive the robot forward 1 foot.
-        m_Drive.AutoDriveRC(0, 12, 5);
-        //Drive the robot Left 1 foot.
-        m_Drive.AutoDriveRC(-12, 0, 5);
-        //Drive the robot backward 1 foot.
-        m_Drive.AutoDriveRC(12, -12, 5);
-        //Drive the robot right 1 foot.
-        m_Drive.SetHeading(90, 3);
-        //Set heading to 90 degrees*/
-
-        //sleep(5000000);
+            m_Drive.AutoDriveRC(2, 0, 0, 2, runtime);
+            m_Drive.SetHeading(180, 3, 30, runtime);
+        }
 
     }
 }

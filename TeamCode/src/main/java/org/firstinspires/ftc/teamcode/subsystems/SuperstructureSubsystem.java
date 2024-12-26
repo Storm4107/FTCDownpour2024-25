@@ -129,7 +129,7 @@ public class SuperstructureSubsystem {
     }
 
     public void setAutoPosition(double ElevatorInches, double initialTime, double endTime, ElapsedTime runtime) {
-        double currentTime = runtime.time();
+        double currentTime = runtime.seconds();
         Elevator.setInches(ElevatorInches);
 
         if((initialTime < currentTime) && (currentTime<= endTime)) {
@@ -142,5 +142,6 @@ public class SuperstructureSubsystem {
             telemetry.addData("Elevator ticks:", Elevator.getInches());
             telemetry.update();
         }
+
     }
 }

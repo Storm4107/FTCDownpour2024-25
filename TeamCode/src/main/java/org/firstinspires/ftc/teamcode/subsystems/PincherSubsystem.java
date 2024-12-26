@@ -53,7 +53,7 @@ public class PincherSubsystem {
     }
 
     public void openWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
-        double currentTime = runtime.time();
+        double currentTime = runtime.seconds();
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             open();
         }
@@ -66,7 +66,7 @@ public class PincherSubsystem {
     }
 
     public void closeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
-        double currentTime = runtime.time();
+        double currentTime = runtime.seconds();
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             close();
         }
