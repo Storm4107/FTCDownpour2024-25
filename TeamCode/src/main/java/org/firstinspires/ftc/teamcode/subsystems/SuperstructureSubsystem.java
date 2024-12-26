@@ -128,13 +128,11 @@ public class SuperstructureSubsystem {
         telemetry.addData("Elevator Inches", Elevator.getInches());
     }
 
-    public void setAutoPosition(double ElevatorInches, double TimeoutS) {
-        runtime.reset();
-
+    public void setAutoPosition(double ElevatorInches, double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.time();
         Elevator.setInches(ElevatorInches);
 
-
-        while((runtime.seconds() < TimeoutS)) {
+        if((initialTime < currentTime) && (currentTime<= endTime)) {
 
 
             //Periodic

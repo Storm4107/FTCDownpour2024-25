@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
@@ -18,6 +18,8 @@ public class AutoRedSpec extends LinearOpMode {
     private TurnSubsystem m_Turn;
     public SuperstructureSubsystem m_Superstructure;
     private MecanumDriveSubsystem m_Drive;
+
+    public ElapsedTime runtime = new ElapsedTime();
 
 
 
@@ -39,50 +41,50 @@ public class AutoRedSpec extends LinearOpMode {
             telemetry.update();
             telemetry.addData("Auto", "Selected");
             m_Drive.zeroPowerBrake();
+            runtime.reset();
+
+            //init commands
+            m_Superstructure.pincher.close();
+            m_Superstructure.OpeningExtend();
+            m_Superstructure.pincher.bucketHome();
 
         }
         waitForStart();
 
         if (isStopRequested()) return;
 
-        //init commands
-        m_Superstructure.pincher.close();
-        m_Superstructure.OpeningExtend();
-        m_Superstructure.pincher.bucketHome();
-
         // scores preload Spec
-
-        m_Superstructure.setAutoPosition(1785, 2);
-        m_Drive.AutoDriveRC(28, 0, 3);
-        m_Superstructure.setAutoPosition(1200,1);
-        m_Superstructure.pincher.open();
+        m_Superstructure.setAutoPosition(1785, 0.1, 1, runtime);
+        m_Drive.AutoDriveRC(28, 0, 0.25, 3, runtime);
+        m_Superstructure.setAutoPosition(1200,3, 5, runtime);
+        m_Superstructure.pincher.openWithScheduler(4, 5, runtime);
 
         // it will now pick a ground sample and bring it to the human player
-        m_Drive.AutoDriveRC(-4,0,1);
-        m_Superstructure.setAutoPosition(-100, 3);
+        m_Drive.AutoDriveRC(-4,0,5, 7, runtime);
+        m_Superstructure.setAutoPosition(-100, 5, 7, runtime);
       //  sleep(1000);
 
 
         //m_Drive.SetHeading(188, 4);
-        m_Drive.AutoDriveRC(0,-30,3);
+        //m_Drive.AutoDriveRC(0,-30,3);
 
-        m_Drive.AutoDriveRC(30, 0, 3);
+       // m_Drive.AutoDriveRC(30, 0, 3);
 
-        m_Drive.AutoDriveRC(0, -10, 3);
+       // m_Drive.AutoDriveRC(0, -10, 3);
 
      //   sleep(2000);
        // m_Turn.Turn(.75, 950);
-        m_Drive.SetHeading(180,3);
+        //m_Drive.SetHeading(180,3);
       //  sleep(2000);
 
 
 
 
-        m_Drive.AutoDriveRC(47,0,6);
+       // m_Drive.AutoDriveRC(47,0,6);
 
-        m_Superstructure.pincher.close();
+       // m_Superstructure.pincher.close();
 
-        sleep(500);
+       // sleep(500);
 
         //m_Superstructure.setAutoPosition(500, 1);
         //  m_Drive.AutoDriveRC(-10, 0, 2);
@@ -106,7 +108,7 @@ public class AutoRedSpec extends LinearOpMode {
 
         //m_Drive.AutoDriveRC(6,0,2);
 
-        sleep(500);
+        //sleep(500);
 
 
 

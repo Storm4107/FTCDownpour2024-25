@@ -33,8 +33,6 @@ public class MecanumDriveSubsystem {
     private Motor rightBack;
     private Telemetry telemetry;
 
-    private ElapsedTime runtime = new ElapsedTime();
-
     private double IMUOffset;
 
     public RevIMU imu;
@@ -131,15 +129,16 @@ public class MecanumDriveSubsystem {
      * Autonomously drive robot centric.
      * @param Forward forward/backward in inches (forward is positive)
      * @param Left Right/left in inches (Left is positive)
-     * @param TimeoutS  Allowed time to run command
+     * @param initialTime  starting time for the command
+     * @param endTime  finishing time for the command
+     * @param runtime  passes the elapsedTime to the class
      */
-    public void AutoDriveRC(double Forward, double Left, double TimeoutS) {
-        resetDriveEncoders();
-        double initialHeading = getHeading();
-
+    public void AutoDriveRC(double Forward, double Left, double initialTime, double endTime, ElapsedTime runtime) {
         int ForwardTarget;
         int StrafeTarget;
         double gain = Constants.AutoConstants.AutoGain;
+
+        double currentTime = runtime.time();
 
         rightBack.setInverted(true);
         leftFront.setInverted(true);
@@ -160,68 +159,58 @@ public class MecanumDriveSubsystem {
             ForwardTarget = driveDistance(Forward);
             StrafeTarget  = driveDistance(Left);
 
-            runtime.reset();
-
             StrafeController.setSetPoint(StrafeTarget);
             TranslationController.setSetPoint(ForwardTarget);
 
-            while((runtime.seconds() < TimeoutS) &&
-            !TranslationController.atSetPoint() || !StrafeController.atSetPoint() ) {
+            if((initialTime < currentTime) && (currentTime<= endTime)) {
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), initialHeading), false);
+                DriveRobotRelative((StrafeController.calculate(getStrafeTicks(), StrafeTarget)  * gain), (TranslationController.calculate(getForwardTicks(), ForwardTarget) * gain), HeadingController.calculate(getHeading(), getHeading()), false);
                 telemetry.addData("AUTO DRIVE STATUS", "RUNNING");
                 telemetry.addData("X Travelled;", getForwardTicks());
                 telemetry.addData("Y Travelled;", getStrafeTicks());
                 telemetry.addData("Heading;", getHeading());
                 telemetry.update();
             }
-
-            //Stop all motion
-            DriveRobotRelative(0,0,0, false);
-            resetDriveEncoders();
-
-        rightBack.setInverted(false);
-        leftFront.setInverted(false);
+            if (currentTime == (endTime + 0.1)) {
+                //Stop all motion
+                DriveRobotRelative(0, 0, 0, false);
+                resetDriveEncoders();
+                rightBack.setInverted(false);
+                leftFront.setInverted(false);
+            }
         }
 
     /**
      * Autonomously Drive to a specific heading.
-     * @param HeadingTarget forward/backward in inches (forward is positive)
-     * @param TimeoutS  Allowed time to run command
+     * @param HeadingTarget Heading setpoint in degrees. Absolute in relation to robot start position
+     * @param initialTime  starting time for the command
+     * @param endTime  finishing time for the command
+     * @param runtime  passes the elapsedTime to the class
      */
-    public void SetHeading(double HeadingTarget, double TimeoutS) {
-        resetDriveEncoders();
-        double initialHeading = getHeading();
+    public void SetHeading(double HeadingTarget, double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.time();
 
+        //Create PID constants
+        PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
 
-        if(true) {
+        PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
+        HeadingController.setTolerance(0.1);
 
-            //Create PID constants
-            PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
+        HeadingController.setSetPoint(HeadingTarget);
 
-
-            PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
-            HeadingController.setTolerance(0.1);
-
-            runtime.reset();
-
-            HeadingController.setSetPoint(HeadingTarget);
-
-            while((runtime.seconds() < TimeoutS) &&
-                    !HeadingController.atSetPoint()) {
-                //Drivebot Periodic
-                //actually drives the robot.
-                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
-                telemetry.addData("AUTO DRIVE STATUS", "HEADING");
-                telemetry.addData("Heading;", getHeading());
-                telemetry.update();
+        if((initialTime < currentTime) && (currentTime<= endTime)) {
+            //Drivebot Periodic
+            //actually drives the robot.
+            DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
+            telemetry.addData("AUTO DRIVE STATUS", "HEADING");
+            telemetry.addData("Heading;", getHeading());
+            telemetry.update();
             }
-
+        if (currentTime == (endTime + 0.1)) {
             //Stop all motion
-            DriveRobotRelative(0,0,0, false);
+            DriveRobotRelative(0, 0, 0, false);
             resetDriveEncoders();
         }
-
     }
 }
