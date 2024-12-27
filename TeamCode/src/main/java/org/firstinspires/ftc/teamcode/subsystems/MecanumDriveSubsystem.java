@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.checkerframework.checker.units.qual.Current;
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -67,7 +68,35 @@ public class MecanumDriveSubsystem {
         drivePeriodic();
     }
 
+    public void DriveWithHeading(double x, double y, double heading, boolean Dampen) {
+        double m;
+        double adjustedSetpoint;
+        double adjustedHeading;
+
+
+
+        //Create PID constants
+        PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
+
+        PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
+
+
+        if (Dampen){
+            m = Constants.DriveConstants.DampenMult;
+        } else {
+            m = Constants.DriveConstants.DriveSpeedMult;
+        }
+        Drive.driveFieldCentric(-y*m, x*m, HeadingController.calculate((getHeading()), calculateContinousSetpoint(getHeading(), heading)) * 1.1,
+                getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
+        drivePeriodic();
+    }
+
     public void DriveRobotRelative(double x, double y, double t, boolean Dampen) {
+
+        //Create PID constants
+        PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
+
+        PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
         double m;
         if (Dampen){
             m = Constants.DriveConstants.DampenMult;
@@ -79,8 +108,22 @@ public class MecanumDriveSubsystem {
     }
 
     public double getHeading() {
-        return imu.getAbsoluteHeading() - IMUOffset;
+            return imu.getHeading() - IMUOffset;
     }
+
+    public double calculateContinousSetpoint(double CurrentAngle, double TargetAngle) {
+        TargetAngle= Math.IEEEremainder(TargetAngle, 360);
+        double remainder = CurrentAngle % (360);
+        double adjustedAngleSetpoint = TargetAngle + (CurrentAngle - remainder);
+
+        if (adjustedAngleSetpoint - CurrentAngle > 180) {
+            adjustedAngleSetpoint -= 360;
+        } else if (adjustedAngleSetpoint - CurrentAngle < -180) {
+            adjustedAngleSetpoint += 360;
+        }
+        return adjustedAngleSetpoint;
+    }
+
 
     public void resetHeading() {
         IMUOffset = imu.getAbsoluteHeading();

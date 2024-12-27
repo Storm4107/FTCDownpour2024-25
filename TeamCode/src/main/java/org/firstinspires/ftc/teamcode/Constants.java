@@ -32,9 +32,9 @@ public class Constants {
        // public static final double COUNTS_PER_INCH = 338.569; //Found empirically with drive tuning
         public static final double COUNTS_PER_INCH = 498.870; //Found empirically with drive tuning
 
-        public static final PIDCoefficients TranslationPID = new PIDCoefficients(.000095, 0, 0);
+        public static final PIDCoefficients TranslationPID = new PIDCoefficients(.000095, 0, 0.0001);
         public static final PIDCoefficients StrafePID = new PIDCoefficients(0.0003, 0, 0.0001);
-        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.0095, 0.008, 0.0002);
+        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.009, 0.000, 0.000125);
 
         //public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.005, 0, 0);
         public static final double AutoGain = 0.75; // All movements in auto are multiplied by this number. Can be used to reduce overall speed.
