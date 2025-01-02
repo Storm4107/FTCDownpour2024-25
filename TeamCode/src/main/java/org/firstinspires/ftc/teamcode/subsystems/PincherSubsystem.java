@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.ServoActuator;
 
@@ -51,9 +52,24 @@ public class PincherSubsystem {
         pincher.setServos(1);
     }
 
+    public void openWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if((initialTime < currentTime) && (currentTime<= endTime)) {
+            open();
+        }
+    }
+
+
     //set pincher to closed
     public void close() {
         pincher.setServos(-1);
+    }
+
+    public void closeWithScheduler(double initialTime, double endTime, ElapsedTime runtime) {
+        double currentTime = runtime.seconds();
+        if((initialTime < currentTime) && (currentTime<= endTime)) {
+            close();
+        }
     }
 
     //Presets
@@ -70,8 +86,12 @@ public class PincherSubsystem {
     }
 
     public void retract() {
-        setWristAngle(.26  );
-        //setPivotAngle(-1);
+        setWristAngle(.22  );
+        setPivotAngle(-1);
+    }
+
+    public void bucketHome(){
+        setWristAngle(1);
     }
 
     public void scoreSample() {

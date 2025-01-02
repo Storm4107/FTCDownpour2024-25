@@ -1,19 +1,27 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.hardware.vision.ColorHuskylens;
+
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
-@Config
+
+
 @Autonomous(name = "2025 - ExampleDrivebotAuto", group = "Autonomous")
 public class ExampleDrivebotAuto extends LinearOpMode {
     //Instantiate mechanisms
-    private SuperstructureSubsystem m_Superstructure;
+
+    public SuperstructureSubsystem m_Superstructure;
     private MecanumDriveSubsystem m_Drive;
+
+    public ElapsedTime runtime = new ElapsedTime();
+
+
+
+
 
     @Override
     public void runOpMode() {
@@ -21,26 +29,30 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         //Run when initializing
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
+        m_Drive.zeroPowerBrake();
 
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.update();
             telemetry.addData("Auto", "Selected");
+            m_Drive.zeroPowerBrake();
+            runtime.reset();
+
+            //init commands
+            m_Superstructure.pincher.close();
+            m_Superstructure.OpeningExtend();
+            m_Superstructure.pincher.bucketHome();
+
         }
         waitForStart();
-
+        m_Drive.resetDriveEncoders();
 
         if (isStopRequested()) return;
+        while (opModeIsActive()) {
+            telemetry.addData("Current time", runtime.seconds());
 
-        //Put auto steps here
-        m_Drive.AutoDriveRC(12, 0, 5);
-        //Drive the robot forward 1 foot.
-        m_Drive.AutoDriveRC(0, 12, 5);
-        //Drive the robot Left 1 foot.
-        m_Drive.AutoDriveRC(-12, 0, 5);
-        //Drive the robot backward 1 foot.
-        m_Drive.AutoDriveRC(12, -12, 5);
-        //Drive the robot right 1 foot.
-        m_Drive.SetHeading(90, 3);
-        //Set heading to 90 degrees
+            m_Drive.AutoDriveRC(2, 0, 0, 2, runtime);
+            m_Drive.SetHeading(180, 3, 30, runtime);
+        }
+
     }
 }

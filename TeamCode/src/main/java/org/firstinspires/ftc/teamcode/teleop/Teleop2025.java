@@ -22,6 +22,9 @@ public class Teleop2025 extends LinearOpMode {
     private MecanumDriveSubsystem m_Drive;
     private SuperstructureSubsystem m_Superstructure;
 
+    public double HeadingSetpoint = 0;
+
+
     @Override
     public void runOpMode() {
         //Run when initializing
@@ -36,6 +39,10 @@ public class Teleop2025 extends LinearOpMode {
         //Run immediately when starting
 
         while (opModeIsActive()) {
+
+            telemetry.addData("forward tickets", m_Drive.getForwardTicks());
+            telemetry.addData("straf tickts", m_Drive.getStrafeTicks());
+            telemetry.update();
                 //Periodic Opmode
                 m_Superstructure.periodic();
 
@@ -43,10 +50,15 @@ public class Teleop2025 extends LinearOpMode {
                         "Periodic currently running",
                         "Operator can hold left bumper for manual control");
 
-                //TODO: Put button bindings below here
+                telemetry.addData("forward ticks",m_Drive.getForwardTicks());
+            telemetry.addData("strafe ticks",m_Drive.getStrafeTicks());
+            telemetry.addData("heading ticks",m_Drive.getHeading());
+
+
+            //TODO: Put button bindings below here
             ////////////////////////////////////////////////////////////////////////////////
                 //IMU Reset button
-                if (Driver.getButton(GamepadKeys.Button.Y)) {
+                if (Driver.getButton(GamepadKeys.Button.DPAD_UP)) {
                    m_Drive.resetHeading();
                 }
 
@@ -54,8 +66,12 @@ public class Teleop2025 extends LinearOpMode {
                 m_Drive.zeroPowerBrake();
 
                 //Drivetrain method
-                m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
-
+                if(Driver.getButton(GamepadKeys.Button.A) || Driver.getButton(GamepadKeys.Button.B)
+                || Driver.getButton(GamepadKeys.Button.X) || Driver.getButton(GamepadKeys.Button.Y)) {
+                    m_Drive.DriveWithHeading(Driver.getLeftX(), Driver.getLeftY(), HeadingSetpoint, Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+                } else {
+                    m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+                }
                 //Superstructure preset - Zero everything
                 if (Operator.getButton(GamepadKeys.Button.START)) {
                     m_Superstructure.zeroPreset();
@@ -120,6 +136,24 @@ public class Teleop2025 extends LinearOpMode {
 
             if (Operator.getButton(GamepadKeys.Button.DPAD_RIGHT)) {
                 m_Superstructure.pincher.scoreSample();
+            }
+
+            //Driver heading states
+            if (Driver.getButton(GamepadKeys.Button.Y)) {
+                HeadingSetpoint = 0;
+            }
+
+            if (Driver.getButton(GamepadKeys.Button.A)) {
+                HeadingSetpoint = 180;
+            }
+
+            if (Driver.getButton(GamepadKeys.Button.X)) {
+                HeadingSetpoint = 90;
+            }
+
+            //Driver heading states
+            if (Driver.getButton(GamepadKeys.Button.B)) {
+                HeadingSetpoint = 270;
             }
         }
 /*
