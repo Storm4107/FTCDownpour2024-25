@@ -53,8 +53,8 @@ public class Auto2andAHalfSpec extends LinearOpMode {
             telemetry.addData("Current time", runtime.seconds());
 
             // scores preload Spec
-            m_Superstructure.setAutoPosition(1785, 0, 3, runtime);
-            m_Drive.AutoDriveRC(28, 3, 1, 3, runtime);
+            m_Superstructure.setAutoPosition(1785, 0, 2.5, runtime);
+            m_Drive.AutoDriveRC(28, 3, 1, 2.5, runtime);
             m_Superstructure.setAutoPosition(1200, 3.15, 4.35, runtime);
             m_Superstructure.pincher.openWithScheduler(4, 4.25, runtime);
 
