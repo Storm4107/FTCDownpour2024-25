@@ -80,8 +80,45 @@ public class MecanumDriveSubsystem {
         drivePeriodic();
     }
 
+    public void DriveWithHeading(double x, double y, double heading, boolean Dampen) {
+        double m;
+        double adjustedSetpoint;
+        double adjustedHeading;
+
+
+
+        //Create PID constants
+        PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
+
+        PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
+
+
+        if (Dampen){
+            m = Constants.DriveConstants.DampenMult;
+        } else {
+            m = Constants.DriveConstants.DriveSpeedMult;
+        }
+        Drive.driveFieldCentric(-y*m, x*m, HeadingController.calculate((getHeading()), calculateContinousSetpoint(getHeading(), heading)) * 1.1,
+                getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
+        drivePeriodic();
+    }
+
+
     public double getHeading() {
         return imu.getAbsoluteHeading() - IMUOffset;
+    }
+
+    public double calculateContinousSetpoint(double CurrentAngle, double TargetAngle) {
+        TargetAngle= Math.IEEEremainder(TargetAngle, 360);
+        double remainder = CurrentAngle % (360);
+        double adjustedAngleSetpoint = TargetAngle + (CurrentAngle - remainder);
+
+        if (adjustedAngleSetpoint - CurrentAngle > 180) {
+            adjustedAngleSetpoint -= 360;
+        } else if (adjustedAngleSetpoint - CurrentAngle < -180) {
+            adjustedAngleSetpoint += 360;
+        }
+        return adjustedAngleSetpoint;
     }
 
     public void resetHeading() {
@@ -212,14 +249,14 @@ public class MecanumDriveSubsystem {
                     !HeadingController.atSetPoint()) {
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
+                DriveWithHeading(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
                 telemetry.addData("AUTO DRIVE STATUS", "HEADING");
                 telemetry.addData("Heading;", getHeading());
                 telemetry.update();
             }
 
             //Stop all motion
-            DriveRobotRelative(0,0,0, false);
+            DriveWithHeading(0,0,0, false);
             resetDriveEncoders();
         }
 
