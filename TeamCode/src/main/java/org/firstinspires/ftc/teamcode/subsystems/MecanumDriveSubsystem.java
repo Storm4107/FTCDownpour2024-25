@@ -137,7 +137,7 @@ public class MecanumDriveSubsystem {
         else return currentHeading;
     }
 
-    public double calculateContinousSetpoint(double CurrentAngle, double HeadingTarget) {
+ /*   public double calculateContinousSetpoint(double CurrentAngle, double HeadingTarget) {
 
         if (currentHeading > 180) {
 
@@ -150,6 +150,8 @@ public class MecanumDriveSubsystem {
         }
          return CurrentAngle;
     }
+    
+  */
 
     //public void resetHeading() {
    //     IMUOffset = imu.getHeading();
@@ -181,6 +183,19 @@ public class MecanumDriveSubsystem {
         telemetry.addData("Heading", getHeading());
         //Called once per scheduler run
         //PUT PERIODIC HERE
+    }
+
+    public double calculateContinousSetpoint(double CurrentAngle, double TargetAngle) {
+        TargetAngle= Math.IEEEremainder(TargetAngle, 360);
+        double remainder = CurrentAngle % (360);
+        double adjustedAngleSetpoint = TargetAngle + (CurrentAngle - remainder);
+
+        if (adjustedAngleSetpoint - CurrentAngle > 180) {
+            adjustedAngleSetpoint -= 360;
+        } else if (adjustedAngleSetpoint - CurrentAngle < -180) {
+            adjustedAngleSetpoint += 360;
+        }
+        return adjustedAngleSetpoint;
     }
 
     //Drivebot scheduler: a custom movement utility.
