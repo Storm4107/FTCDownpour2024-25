@@ -105,7 +105,8 @@ public class MecanumDriveSubsystem {
 
 
     public double getHeading() {
-        return imu.getAbsoluteHeading() - IMUOffset;
+        return imu.getAbsoluteHeading();
+                //- IMUOffset;
     }
 
     public double calculateContinousSetpoint(double CurrentAngle, double TargetAngle) {
