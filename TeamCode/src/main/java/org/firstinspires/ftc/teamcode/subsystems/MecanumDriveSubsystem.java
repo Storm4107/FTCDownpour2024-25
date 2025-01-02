@@ -20,6 +20,12 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -32,12 +38,23 @@ public class MecanumDriveSubsystem {
     private Motor leftBack;
     private Motor rightBack;
     private Telemetry telemetry;
+    BNO055IMU imu;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
     private double IMUOffset;
 
-    public RevIMU imu;
+    //public RevIMU imu;
+
+    Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    double firstAngle = angles.firstAngle;
+    double currentHeading = imu.getAngularOrientation().firstAngle; // Get the current IMU heading
+
+
+
+
+
 
     //Creates new Mecanum Drivetrain
     public MecanumDriveSubsystem(HardwareMap Map, Telemetry telemetry) {
@@ -53,8 +70,8 @@ public class MecanumDriveSubsystem {
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
 
-        imu = new RevIMU(Map, "imu");
-        imu.init();
+        //imu = new RevIMU(Map, "imu");
+       // imu.init();
     }
 
     public void Drive(double x, double y, double t, boolean Dampen) {
@@ -105,26 +122,38 @@ public class MecanumDriveSubsystem {
 
 
     public double getHeading() {
-        return imu.getAbsoluteHeading() - IMUOffset;
-         Telemetry.addData("test", String.valueOf(Math.IEEEremainder(imu.getAbsoluteHeading(), 360)));
-    }
+        // return imu.getHeading() - IMUOffset;
+        // return currentHeading;
+        if (currentHeading > 180) {
 
-    public double calculateContinousSetpoint(double CurrentAngle, double TargetAngle) {
-        TargetAngle= Math.IEEEremainder(TargetAngle, 360);
-        double remainder = CurrentAngle % (360);
-        double adjustedAngleSetpoint = TargetAngle + (CurrentAngle - remainder);
+            return currentHeading -= 360; // Adjust if angle is greater than 180 degrees
 
-        if (adjustedAngleSetpoint - CurrentAngle < -180) {
-            adjustedAngleSetpoint += 360;
-        } else if (adjustedAngleSetpoint - CurrentAngle <= 180) {
-            adjustedAngleSetpoint -= 360;
+        } else if (currentHeading < -180) {
+
+            return currentHeading += 360; // Adjust if angle is less than -180 degrees
+
         }
-        return adjustedAngleSetpoint;
+
+        else return currentHeading;
     }
 
-    public void resetHeading() {
-        IMUOffset = imu.getAbsoluteHeading();
+    public double calculateContinousSetpoint(double CurrentAngle, double HeadingTarget) {
+
+        if (currentHeading > 180) {
+
+            currentHeading -= 360; // Adjust if angle is greater than 180 degrees
+
+        } else if (currentHeading < -180) {
+
+            currentHeading += 360; // Adjust if angle is less than -180 degrees
+
+        }
+         return CurrentAngle;
     }
+
+    //public void resetHeading() {
+   //     IMUOffset = imu.getHeading();
+   // }
 
     public int getForwardTicks(){
         //assumes Forward deadwheel is plugged into LeftFront
@@ -231,6 +260,7 @@ public class MecanumDriveSubsystem {
     public void SetHeading(double HeadingTarget, double TimeoutS) {
         resetDriveEncoders();
         double initialHeading = getHeading();
+
 
 
         if(true) {
