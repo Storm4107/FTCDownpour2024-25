@@ -105,8 +105,8 @@ public class MecanumDriveSubsystem {
 
 
     public double getHeading() {
-        return imu.getAbsoluteHeading();
-                //- IMUOffset;
+        return imu.getAbsoluteHeading() - IMUOffset;
+         Telemetry.addData("test", String.valueOf(Math.IEEEremainder(imu.getAbsoluteHeading(), 360)));
     }
 
     public double calculateContinousSetpoint(double CurrentAngle, double TargetAngle) {
@@ -114,10 +114,10 @@ public class MecanumDriveSubsystem {
         double remainder = CurrentAngle % (360);
         double adjustedAngleSetpoint = TargetAngle + (CurrentAngle - remainder);
 
-        if (adjustedAngleSetpoint - CurrentAngle > 180) {
-            adjustedAngleSetpoint -= 360;
-        } else if (adjustedAngleSetpoint - CurrentAngle < -180) {
+        if (adjustedAngleSetpoint - CurrentAngle < -180) {
             adjustedAngleSetpoint += 360;
+        } else if (adjustedAngleSetpoint - CurrentAngle <= 180) {
+            adjustedAngleSetpoint -= 360;
         }
         return adjustedAngleSetpoint;
     }
@@ -250,7 +250,9 @@ public class MecanumDriveSubsystem {
                     !HeadingController.atSetPoint()) {
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveWithHeading(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
+               // DriveWithHeading(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
+                DriveWithHeading(0, 0, calculateContinousSetpoint(getHeading(), HeadingTarget), false);
+
                 telemetry.addData("AUTO DRIVE STATUS", "HEADING");
                 telemetry.addData("Heading;", getHeading());
                 telemetry.update();

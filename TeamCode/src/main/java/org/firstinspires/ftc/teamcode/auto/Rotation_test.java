@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.TurnSubsystem;
@@ -37,6 +38,7 @@ public class Rotation_test extends LinearOpMode {
             telemetry.update();
             telemetry.addData("Auto", "Selected");
             telemetry.addData("Counts",m_Drive.getHeading());
+            Telemetry.addData("test", String.valueOf(Math.IEEEremainder(m_Drive.imu.getAbsoluteHeading(), 360)));
             m_Drive.zeroPowerBrake();
 
         }
