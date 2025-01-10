@@ -77,6 +77,11 @@ public class SuperstructureSubsystem {
         pincher.open();
     }
 
+    public void resetElevator(){
+        elevatorMotor1.stopAndResetEncoder();
+        elevatorMotor2.stopAndResetEncoder();
+    }
+
     //Sample preset - Brings all mechanisms to pickup
     public void groundPickupPreset() {
 
