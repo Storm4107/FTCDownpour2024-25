@@ -72,9 +72,9 @@ public class Auto3spec extends LinearOpMode {
             m_Drive.AutoDriveRC(-10, -36.5, 16.85, 18.3, runtime);
             m_Drive.SetHeading(0, 18.45, 19.7, runtime);
             //Drop off
-            m_Drive.AutoDriveRC(16, 0, 19.75, 20.5, runtime);
-            m_Superstructure.setAutoPosition(1200, 23.25, 24.5, runtime);
-            m_Superstructure.pincher.openWithScheduler(24.5, 24.75, runtime);
+            m_Drive.AutoDriveRC(15, 0, 19.75, 20, runtime);
+            m_Superstructure.setAutoPosition(1200, 20.05, 21.5, runtime);
+            m_Superstructure.pincher.openWithScheduler(21.55, 22.1, runtime);
             m_Drive.SetHeading(0, 24.5, 25, runtime);
             m_Drive.AutoDriveRC(-28, -60, 25.15, 26.5, runtime);
             m_Superstructure.setAutoPosition(-100, 25, 26.5, runtime);

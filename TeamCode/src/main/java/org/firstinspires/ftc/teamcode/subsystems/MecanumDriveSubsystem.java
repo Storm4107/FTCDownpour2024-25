@@ -254,7 +254,7 @@ public class MecanumDriveSubsystem {
         if((initialTime < currentTime) && (currentTime<= endTime)) {
             //Drivebot Periodic
             //actually drives the robot.
-            DriveRobotRelative(0, HeadingController.calculate(getHeading(), HeadingTarget), 0, false);
+            DriveRobotRelative(0, HeadingController.calculate(getHeading(), calculateContinousSetpoint(HeadingTarget, getHeading())), 0, false);
             telemetry.addData("AUTO DRIVE STATUS", "HEADING");
             telemetry.addData("Heading;", getHeading());
             telemetry.update();
