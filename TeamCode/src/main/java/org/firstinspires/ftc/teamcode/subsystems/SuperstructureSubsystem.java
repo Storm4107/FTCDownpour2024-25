@@ -114,7 +114,7 @@ public class SuperstructureSubsystem {
     //Sample preset - Brings all mechanisms to high bucket
     public void highPreset() {
 
-        Elevator.setInches(1785);
+        Elevator.setInches(1830);
     }
 
     /**
