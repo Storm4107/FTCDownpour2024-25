@@ -53,18 +53,24 @@ public class NewTest extends LinearOpMode {
             telemetry.addData("Current time", runtime.seconds());
 
             // scores preload Spec
-            /*
+
             m_Superstructure.setAutoPosition(1785, 0, 3, runtime);
-            m_Drive.AutoDriveRC(28, 3, 1, 3.1, runtime);
+            m_Drive.AutoDriveRC(28, 3, 1, 3, runtime);
             m_Superstructure.setAutoPosition(1200, 3.15, 4.35, runtime);
             m_Superstructure.pincher.openWithScheduler(4, 4.25, runtime);
 
             // it will now pick a ground sample and bring it to the human player
             m_Superstructure.setAutoPosition(-100, 4.35, 7.5, runtime);
-            m_Drive.AutoDriveRC(-12.5, -28, 4.75, 7.5, runtime);
-            */
-            m_Superstructure.pincher.wallPickup();
-            m_Superstructure.pincher.setPivotAngle(1);
+            m_Drive.AutoDriveRC(-12, -31.5, 4.75, 6.5, runtime);
+
+            m_Superstructure.OpeningExtend();
+            sleep(200);
+            m_Superstructure.wallPickupPreset();
+            sleep(1000);
+            m_Superstructure.pincher.setWristAngle(0);
+            sleep(200);
+            m_Superstructure.pincher.setPivotAngle(0);
+            sleep(200);
             /*
             m_Drive.AutoDriveRC(36, 0, 7.65, 9.5, runtime);
             m_Drive.SetHeading(180, 9.65, 11.5, runtime);
@@ -85,8 +91,8 @@ public class NewTest extends LinearOpMode {
             m_Drive.SetHeading(180, 26.65, 28, runtime);
             m_Drive.AutoDriveRC(14, 0, 28.15, 29.15, runtime);
             m_Superstructure.pincher.closeWithScheduler(29.15, 30, runtime);
+            */
 
-             */
 
         }
 
