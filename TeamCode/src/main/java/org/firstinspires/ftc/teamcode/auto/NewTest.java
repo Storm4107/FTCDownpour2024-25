@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 
-@Autonomous(name = "2025 - NewTest", group = "Autonomous")
+@Autonomous(name = "2025 - NewAuto", group = "Autonomous")
 public class NewTest extends LinearOpMode {
     //Instantiate mechanisms
 
@@ -64,14 +64,14 @@ public class NewTest extends LinearOpMode {
             m_Drive.AutoDriveRC(-12, -31.5, 4.75, 6.5, runtime);
 
             m_Superstructure.OpeningExtend();
-            sleep(200);
+            sleep(50);
             m_Superstructure.wallPickupPreset();
-            sleep(1000);
+            sleep(50);
             m_Superstructure.pincher.setWristAngle(0);
-            sleep(200);
+            sleep(50);
             m_Superstructure.pincher.setPivotAngle(0);
-            sleep(200);
-            /*
+            sleep(50);
+
             m_Drive.AutoDriveRC(36, 0, 7.65, 9.5, runtime);
             m_Drive.SetHeading(180, 9.65, 11.5, runtime);
             m_Drive.AutoDriveRC(0, 7, 11.65, 12.5, runtime);
@@ -91,7 +91,6 @@ public class NewTest extends LinearOpMode {
             m_Drive.SetHeading(180, 26.65, 28, runtime);
             m_Drive.AutoDriveRC(14, 0, 28.15, 29.15, runtime);
             m_Superstructure.pincher.closeWithScheduler(29.15, 30, runtime);
-            */
 
 
         }
