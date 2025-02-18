@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 
-@Autonomous(name = "2025 - NewAuto", group = "Autonomous")
+@Autonomous(name = "2025 - NewTest", group = "Autonomous")
 public class NewTest extends LinearOpMode {
     //Instantiate mechanisms
 
@@ -53,44 +53,45 @@ public class NewTest extends LinearOpMode {
             telemetry.addData("Current time", runtime.seconds());
 
             // scores preload Spec
-
-            m_Superstructure.setAutoPosition(1785, 0, 3, runtime);
-            m_Drive.AutoDriveRC(28, 3, 1, 3, runtime);
-            m_Superstructure.setAutoPosition(1200, 3.15, 4.35, runtime);
-            m_Superstructure.pincher.openWithScheduler(4, 4.25, runtime);
+            m_Superstructure.setAutoPosition(1800, 0, 1.9, runtime);
+            m_Drive.AutoDriveRC(28, 3, 1, 1.9, runtime);
+            m_Superstructure.setAutoPosition(1200, 2, 3, runtime);
+            m_Superstructure.pincher.openWithScheduler(2.3, 2.55, runtime);
 
             // it will now pick a ground sample and bring it to the human player
-            m_Superstructure.setAutoPosition(-100, 4.35, 7.5, runtime);
-            m_Drive.AutoDriveRC(-12, -31.5, 4.75, 6.5, runtime);
+            m_Superstructure.setAutoPosition(-100, 3.1, 4, runtime);
+            m_Drive.AutoDriveRC(-12, -31, 3.4, 4.7, runtime);
+            m_Drive.AutoDriveRC(30, 0, 4.8, 5.8, runtime);
+            m_Drive.SetHeading(180, 5.9, 7.3, runtime);
 
-            m_Superstructure.OpeningExtend();
-            sleep(50);
-            m_Superstructure.wallPickupPreset();
-            sleep(50);
-            m_Superstructure.pincher.setWristAngle(0);
-            sleep(50);
-            m_Superstructure.pincher.setPivotAngle(0);
-            sleep(50);
-
-            m_Drive.AutoDriveRC(36, 0, 7.65, 9.5, runtime);
-            m_Drive.SetHeading(180, 9.65, 11.5, runtime);
-            m_Drive.AutoDriveRC(0, 7, 11.65, 12.5, runtime);
-            m_Drive.AutoDriveRC(45, 0, 12.65, 14.85, runtime);
-            m_Drive.AutoDriveRC(8, 0, 15, 16.5, runtime);
-            m_Superstructure.pincher.closeWithScheduler(16.5, 16.75, runtime);
-            m_Superstructure.setAutoPosition(1810, 16.75, 19.25, runtime);
-            m_Drive.AutoDriveRC(-10, -44, 16.85, 19, runtime);
-            m_Drive.SetHeading(0, 19.15, 22, runtime);
+            m_Drive.AutoDriveRC(0, 7, 7.4, 8, runtime);
+            m_Drive.AutoDriveRC(42, 0, 8.1, 9.2, runtime);
+            m_Drive.AutoDriveRC(7, 0, 9.25, 9.75, runtime);
+            m_Superstructure.pincher.closeWithScheduler(9.8, 10.05, runtime);
+            m_Superstructure.setAutoPosition(1800, 10.1, 11.6, runtime);
+            m_Drive.AutoDriveRC(-10, -40, 11.7, 13, runtime);
+            m_Drive.SetHeading(0, 13.1, 14.5, runtime);
             //Drop off
-            m_Drive.AutoDriveRC(21, 0, 22.15, 23.25, runtime);
-            m_Superstructure.setAutoPosition(1200, 23.25, 24.5, runtime);
-            m_Superstructure.pincher.openWithScheduler(24.5, 24.75, runtime);
-            m_Drive.SetHeading(0, 24.5, 25, runtime);
-            m_Drive.AutoDriveRC(-26, -60, 25.15, 26.5, runtime);
-            m_Superstructure.setAutoPosition(-100, 25, 26.5, runtime);
-            m_Drive.SetHeading(180, 26.65, 28, runtime);
-            m_Drive.AutoDriveRC(14, 0, 28.15, 29.15, runtime);
-            m_Superstructure.pincher.closeWithScheduler(29.15, 30, runtime);
+
+            m_Drive.AutoDriveRC(20, 0, 14.6, 15.7, runtime);
+            m_Superstructure.setAutoPosition(1200, 15.8, 16.8, runtime);
+            m_Superstructure.pincher.openWithScheduler(15.9, 16.15, runtime);
+            m_Drive.SetHeading(0, 16.9, 17.4, runtime);
+            m_Superstructure.setAutoPosition(-100, 17.5, 18.5, runtime);
+            m_Drive.AutoDriveRC(-8, -50, 18.6, 19.9, runtime);
+
+            m_Drive.SetHeading(180, 20, 21.2, runtime);
+            m_Drive.AutoDriveRC(20, 0, 21.3, 22.3, runtime);
+            m_Superstructure.pincher.closeWithScheduler(22.4, 22.7, runtime);
+            //Score 3rd Spec
+            m_Superstructure.setAutoPosition(1800,22.8,24.7,runtime);
+            m_Drive.AutoDriveRC(-18,-45,24.8,26.4,runtime);
+            m_Drive.SetHeading(0,26.5,27.5,runtime);
+            m_Drive.AutoDriveRC(10,0,27.6,28.9,runtime);
+            m_Superstructure.setAutoPosition(-100,29,30,runtime);
+            m_Superstructure.pincher.openWithScheduler(29.2,29.45,runtime);
+
+
 
 
         }

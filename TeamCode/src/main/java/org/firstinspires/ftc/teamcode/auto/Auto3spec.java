@@ -73,7 +73,7 @@ public class Auto3spec extends LinearOpMode {
             m_Drive.SetHeading(0, 13.4, 14.8, runtime);
             //Drop off
 
-            m_Drive.AutoDriveRC(20, 0, 14.9, 16, runtime);
+            m_Drive.AutoDriveRC(18, 0, 14.9, 16, runtime);
             m_Superstructure.setAutoPosition(1200, 16.1, 17.1, runtime);
             m_Superstructure.pincher.openWithScheduler(16.2, 16.45, runtime);
             m_Drive.SetHeading(0, 17.2, 17.7, runtime);
@@ -81,15 +81,15 @@ public class Auto3spec extends LinearOpMode {
             m_Drive.AutoDriveRC(-15, -50, 18.9, 20.2, runtime);
 
             m_Drive.SetHeading(180, 20.3, 21.5, runtime);
-            m_Drive.AutoDriveRC(14, 0, 21.6, 22.6, runtime);
-            m_Superstructure.pincher.closeWithScheduler(22.7, 22.95, runtime);
+            m_Drive.AutoDriveRC(20, 0, 21.6, 22.6, runtime);
+            m_Superstructure.pincher.closeWithScheduler(22.7, 23, runtime);
             //Score 3rd Spec
-            m_Superstructure.setAutoPosition(1800,23,25,runtime);
-            m_Drive.AutoDriveRC(-15,-35,25.1,26.4,runtime);
-            m_Drive.SetHeading(0,26.5,27.5,runtime);
-            m_Drive.AutoDriveRC(10,0,27.6,28.9,runtime);
-            m_Superstructure.setAutoPosition(1200,29,30,runtime);
-            m_Superstructure.pincher.openWithScheduler(29.2,29.25,runtime);
+            m_Superstructure.setAutoPosition(1800,23.1,25,runtime);
+            m_Drive.AutoDriveRC(-18,-45,25.1,26.7,runtime);
+            m_Drive.SetHeading(0,26.8,27.8,runtime);
+            m_Drive.AutoDriveRC(10,0,27.9,29.2,runtime);
+            m_Superstructure.setAutoPosition(1200,29.3,30,runtime);
+            m_Superstructure.pincher.openWithScheduler(29.5,29.75,runtime);
 
 
 
