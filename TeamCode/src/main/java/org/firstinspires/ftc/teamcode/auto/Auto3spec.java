@@ -8,8 +8,9 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 
-@Autonomous(name = "2025 - Auto3spec", group = "Autonomous")
-public class Auto3spec extends LinearOpMode {
+@Autonomous(name = "2025 - Auto3Spec", group = "Autonomous")
+public class Auto3spec
+        extends LinearOpMode {
     //Instantiate mechanisms
 
     public SuperstructureSubsystem m_Superstructure;
@@ -64,32 +65,32 @@ public class Auto3spec extends LinearOpMode {
             m_Drive.AutoDriveRC(30, 0, 4.8, 5.8, runtime);
             m_Drive.SetHeading(180, 5.9, 7.3, runtime);
 
-            m_Drive.AutoDriveRC(0, 8, 7.4, 8, runtime);
+            m_Drive.AutoDriveRC(0, 7, 7.4, 8, runtime);
             m_Drive.AutoDriveRC(42, 0, 8.1, 9.2, runtime);
             m_Drive.AutoDriveRC(7, 0, 9.25, 9.75, runtime);
             m_Superstructure.pincher.closeWithScheduler(9.8, 10.05, runtime);
-            m_Superstructure.setAutoPosition(1800, 10.1, 11.9, runtime);
-            m_Drive.AutoDriveRC(-10, -40, 12, 13.3, runtime);
-            m_Drive.SetHeading(0, 13.4, 14.8, runtime);
+            m_Superstructure.setAutoPosition(1800, 10.1, 11.6, runtime);
+            m_Drive.AutoDriveRC(-10, -40, 11.7, 13, runtime);
+            m_Drive.SetHeading(0, 13.1, 14.5, runtime);
             //Drop off
 
-            m_Drive.AutoDriveRC(18, 0, 14.9, 16, runtime);
-            m_Superstructure.setAutoPosition(1200, 16.1, 17.1, runtime);
-            m_Superstructure.pincher.openWithScheduler(16.2, 16.45, runtime);
-            m_Drive.SetHeading(0, 17.2, 17.7, runtime);
-            m_Superstructure.setAutoPosition(-100, 17.8, 18.8, runtime);
-            m_Drive.AutoDriveRC(-15, -50, 18.9, 20.2, runtime);
+            m_Drive.AutoDriveRC(20, 0, 14.6, 15.7, runtime);
+            m_Superstructure.setAutoPosition(1200, 15.8, 16.8, runtime);
+            m_Superstructure.pincher.openWithScheduler(15.9, 16.15, runtime);
+            m_Drive.SetHeading(0, 16.9, 17.4, runtime);
+            m_Superstructure.setAutoPosition(-100, 17.5, 18.5, runtime);
+            m_Drive.AutoDriveRC(-8, -50, 18.6, 19.9, runtime);
 
-            m_Drive.SetHeading(180, 20.3, 21.5, runtime);
-            m_Drive.AutoDriveRC(20, 0, 21.6, 22.6, runtime);
-            m_Superstructure.pincher.closeWithScheduler(22.7, 23, runtime);
+            m_Drive.SetHeading(180, 20, 21.2, runtime);
+            m_Drive.AutoDriveRC(20, 0, 21.3, 22.3, runtime);
+            m_Superstructure.pincher.closeWithScheduler(22.4, 22.7, runtime);
             //Score 3rd Spec
-            m_Superstructure.setAutoPosition(1800,23.1,25,runtime);
-            m_Drive.AutoDriveRC(-18,-45,25.1,26.7,runtime);
-            m_Drive.SetHeading(0,26.8,27.8,runtime);
-            m_Drive.AutoDriveRC(10,0,27.9,29.2,runtime);
-            m_Superstructure.setAutoPosition(1200,29.3,30,runtime);
-            m_Superstructure.pincher.openWithScheduler(29.5,29.75,runtime);
+            m_Superstructure.setAutoPosition(1800,22.8,24.7,runtime);
+            m_Drive.AutoDriveRC(-18,-45,24.8,26.4,runtime);
+            m_Drive.SetHeading(0,26.5,27.5,runtime);
+            m_Drive.AutoDriveRC(10,0,27.6,28.9,runtime);
+            m_Superstructure.setAutoPosition(-100,29,30,runtime);
+            m_Superstructure.pincher.openWithScheduler(29.2,29.45,runtime);
 
 
 
